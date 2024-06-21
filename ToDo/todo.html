@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h2>To Do List</h2>
+            <input type="text" placeholder="Task Note..." id="taskInput">
+            <div class="pos">
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime">
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime">
+        </div>
+            <ul id="list"></ul>
+        </div>
+    </div>
+    <script>
+        let taskInput = document.querySelector('#taskInput');
+        let startTime = document.querySelector('#startTime');
+        let endTime = document.querySelector('#endTime');
+        let list = document.querySelector('#list');
+
+        taskInput.addEventListener("keyup", function(event) {
+            if (event.key == "Enter") {
+                addItem(this.value, startTime.value, endTime.value);
+                this.value = "";
+                startTime.value = "";
+                endTime.value = "";
+            }
+        });
+
+        let addItem = (task, start, end) => {
+            let listItem = document.createElement("li");
+            listItem.innerHTML = `${task} (${start} - ${end}) <i></i>`;
+
+            listItem.addEventListener("click", function() {
+                this.classList.toggle('done');
+            });
+
+            listItem.querySelector("i").addEventListener("click", function() {
+                listItem.remove();
+            });
+
+            list.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
